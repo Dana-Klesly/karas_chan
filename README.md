@@ -13,8 +13,8 @@ Ich habe die Webseite „KARAS“ entwickelt, um meine personalisierten Gläser 
 
 ## 🧱 Technologie-Stack
 
-- **Frontend:** Angular
-- **Backend:** Node.js mit Express.js
+- **Frontend:(karaschan)** Angular
+- **Backend:(KarasChan-master)** Node.js mit Express.js
 - **Datenbank:** PostgreSQL (verwaltet über Drizzle Studio)
 - **Styling:** HTML, CSS, eigenes Grid-System
 
