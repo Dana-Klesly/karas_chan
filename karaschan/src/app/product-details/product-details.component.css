@@ -1,0 +1,137 @@
+.similar-products {
+  display: inline-block;
+  gap: 15px;
+  width: 90%;
+  margin-top: 170px;
+  margin-left: 100px;
+  position: relative;
+}
+
+@media (max-width: 1024px) {
+  .similar-products {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 90%;
+    margin-left: 30px;
+    margin-top: 50px;
+  }
+}
+
+.more-icon {
+  position: absolute;
+  width: 300px;
+  margin-top: 130px;
+  margin-left: 120px;
+  transition: top 0.3s ease-in-out;
+}
+
+.navbar-expanded .more-icon {
+  top: 200px;
+}
+
+@media (max-width: 1024px) {
+  .more-icon {
+    margin-top: 0;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .similar-products {
+    margin-top: 20px;
+  }
+
+  .more-icon {
+    left: 0;
+    margin-top: 0;
+    margin-left: 20px !important;
+    width: 250px;
+  }
+}
+
+.product-box {
+  width: 350px;
+  height: 300px;
+  margin: 10px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  opacity: 0.7;
+  box-shadow: 0px 6px 18px rgba(50, 50, 50, 0.8);
+}
+
+.product-box:nth-child(odd) {
+  background: rgba(228, 193, 244, 0.7);
+}
+
+.product-box:nth-child(even) {
+  background: rgba(159, 188, 247, 0.7);
+}
+
+@media (max-width: 480px) {
+  .product-box {
+    width: 330px !important;
+  }
+}
+
+.product-view {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 90px;
+  margin-right: 20px;
+  padding-right: 0;
+}
+
+@media (max-width: 480px) {
+  .product-view {
+    margin-top: 20px;
+  }
+}
+
+.image-box {
+  background: rgba(255, 150, 170, 0.7);
+  border-radius: 30px;
+  width: 95%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 6px 18px rgba(50, 50, 50, 0.8);
+  margin-right: 0;
+}
+
+.description-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(159, 188, 247, 0.7);
+  border-radius: 30px;
+  margin-top: 20px;
+  width: 90%;
+  height: 250px;
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0px 6px 18px rgba(50, 50, 50, 0.8);
+  margin-right: 0;
+}
+
+.moon-icon {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: 300px;
+}
