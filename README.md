@@ -33,7 +33,7 @@ Bevor das Projekt gestartet werden kann, müssen folgende Programme auf dem Syst
 
 ## ⚙️ Backend – Startanleitung
 
-1. `npm i`  
+1. `npm install`  
    Lädt alle benötigten Node-Module für das Backend-Projekt.
 
 2. `npm run build`  
@@ -51,10 +51,13 @@ Bevor das Projekt gestartet werden kann, müssen folgende Programme auf dem Syst
 
 ## 💻 Frontend – Startanleitung (Angular)
 
-1. `npm i`  
+1. `npm install`  
    Installiert alle notwendigen Node-Module für das Angular-Frontend.
 
-2. `ng serve --proxy-config proxy.conf.json`  
+2. `npm run build`  
+   Erstellt das `dist`-Verzeichnis, da TypeScript vor der Ausführung kompiliert werden muss.
+   
+3. `npm run start`  
    Startet das Angular-Frontend mit Proxy-Konfiguration, um API-Anfragen korrekt weiterzuleiten.
 
 ---
