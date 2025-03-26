@@ -39,7 +39,7 @@ Bevor das Projekt gestartet werden kann, müssen folgende Programme auf dem Syst
 2. `npm run build`  
    Erstellt das `dist`-Verzeichnis, da TypeScript vor der Ausführung kompiliert werden muss.
 
-3. `npm run dev`  
+3. `npm run start`  
    Startet das Backend im Entwicklungsmodus.
 
 ### Zusätzliche Befehle:
