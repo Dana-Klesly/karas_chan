@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start": "dotenv -e ../.env.development.local -- node dist/server.js",
     "dev": "dotenv -e .env.development.local -- tsx watch src/server.ts",
     "db:push": "dotenv -e .env.development.local -- npx drizzle-kit push",
     "db:studio": "dotenv -e ./.env.development.local -- npx drizzle-kit studio"
