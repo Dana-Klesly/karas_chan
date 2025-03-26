@@ -11,7 +11,6 @@ USER ||--}o CART : has
 CART ||--}o CART_ITEM : has
 
 CART_ITEM ||--|| PRODUCT : has
-ORDER_ITEM ||--|| PRODUCT : has
 
 USER {
     UUID id PK
