@@ -7,10 +7,8 @@ The following LDM(s) represents the current state of the database.
 erDiagram
 
 USER ||--}o CART : has
-USER ||--}o ORDER : has
 
 CART ||--}o CART_ITEM : has
-ORDER ||--}o ORDER_ITEM : has
 
 CART_ITEM ||--|| PRODUCT : has
 ORDER_ITEM ||--|| PRODUCT : has
@@ -44,25 +42,6 @@ CART_ITEM {
     DATETIME updated_at
 }
 
-ORDER {
-    SERIAL id PK
-    UUID user_id
-    INTEGER cart_id FK
-    DECIMAl total_amount
-    ENUM fulfillment_status  "pending, processing, shipped, delivered, cancelled"
-    DATETIME created_at
-    DATETIME updated_at
-}
-
-ORDER_ITEM {
-    SERIAL id PK
-    INTEGER order_id FK
-    INTEGER product_id FK
-    INTEGER quantity
-    DECIMAL price_at_purchase
-    DATETIME created_at
-    DATETIME updated_at
-}
 
 PRODUCT {
     SERIAL id PK
