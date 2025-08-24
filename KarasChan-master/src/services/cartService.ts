@@ -54,17 +54,15 @@ export async function getCartItems(
 }
 
 export async function getTotalCartItemsCount(cartId: number) {
-  let totalCartItems = undefined;
   try {
-    totalCartItems = await db
+    const totalCartItems = await db
       .select({ count: count() })
-      .from(cart)
-      .where(eq(cart.id, cartId))
-      .innerJoin(cartItem, eq(cartItem.cartId, cartItem.id));
+      .from(cartItem)
+      .where(eq(cartItem.cartId, cartId));
+    return totalCartItems; 
   } catch (error) {
     throw new Error("Database error");
   }
-  return totalCartItems;
 }
 
 export async function addItemToCart(input: {

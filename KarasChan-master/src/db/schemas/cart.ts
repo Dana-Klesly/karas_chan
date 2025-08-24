@@ -18,7 +18,7 @@ export const cartStatus = pgEnum("cart_status", [
 
 export const cart = pgTable("cart", {
   id: serial().primaryKey(),
-  userId: uuid().references(() => user.id),
+  userId: uuid().references(() => user.id, { onDelete: "cascade" }),
   status: cartStatus().default("active"),
   checkedOutAt: timestamp(),
   archivedAt: timestamp(),
@@ -27,7 +27,7 @@ export const cart = pgTable("cart", {
 
 export const cartItem = pgTable("cart_item", {
   id: serial().primaryKey(),
-  cartId: integer().references(() => cart.id),
+  cartId: integer().references(() => cart.id, { onDelete: "cascade" }),
   productId: integer().references(() => product.id),
   quantity: integer().notNull(),
   ...timestamps,
