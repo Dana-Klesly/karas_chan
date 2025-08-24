@@ -10,6 +10,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ThanksComponent } from './thanks/thanks.component';
 import { AuthGuard } from './services/guard/auth-guard.guard';
+import { MonitoringDashboardComponent } from './monitoring-dashboard/monitoring-dashboard.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'thanks', component: ThanksComponent },
+  { path: 'dashboard', component: MonitoringDashboardComponent }, 
   { path: '**', redirectTo: '' },
 ];
 
@@ -28,4 +30,4 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

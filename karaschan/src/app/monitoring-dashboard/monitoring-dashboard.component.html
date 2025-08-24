@@ -1,0 +1,39 @@
+<div class="dashboard-grid">
+  <mat-card class="dashboard-card">
+    <mat-card-title>CPU Load</mat-card-title>
+    <mat-card-content>
+      <canvas baseChart
+              [data]="cpuChartData"
+              [options]="chartOptions"
+              chartType="line">
+      </canvas>
+      <p>Current: {{ metrics?.cpuLoad }}%</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="dashboard-card">
+    <mat-card-title>Memory Usage</mat-card-title>
+    <mat-card-content>
+      <canvas baseChart
+              [data]="memoryChartData"
+              [options]="chartOptions"
+              chartType="line">
+      </canvas>
+      <p>Heap Used: {{ metrics?.memoryUsage?.heapUsed / 1024 / 1024 | number:'1.0-2' }} MB</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="dashboard-card">
+    <mat-card-title>Uptime</mat-card-title>
+    <mat-card-content>
+      <p>{{ metrics?.uptime | number }} seconds</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="dashboard-card">
+    <mat-card-title>Request Count</mat-card-title>
+    <mat-card-content>
+      <p>{{ metrics?.requestCount }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
