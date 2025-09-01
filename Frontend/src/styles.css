@@ -1,0 +1,81 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  background: url("./assets/img/1/HG.png") no-repeat center center fixed;
+  background-size: cover;
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+.container {
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.row::after {
+  content: "" !important;
+  clear: both !important;
+  display: block !important;
+}
+
+[class*="col-"] {
+  float: left !important;
+  min-height: 1px !important;
+  padding: 0.8rem !important;
+}
+
+.col-1 {
+  width: 16.666% !important;
+}
+.col-2 {
+  width: 33.333% !important;
+}
+.col-3 {
+  width: 50% !important;
+}
+.col-4 {
+  width: 66.666% !important;
+}
+.col-6 {
+  width: 100% !important;
+}
+
+@media (max-width: 1024px) {
+  .col-1 {
+    width: 33.333% !important;
+  }
+  .col-2 {
+    width: 50% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .col-1 {
+    width: 50% !important;
+  }
+  .col-2 {
+    width: 100% !important;
+  }
+  .col-3 {
+    width: 100% !important;
+  }
+  .col-4 {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .col-1 {
+    width: 100% !important;
+  }
+  .col-2 {
+    width: 100% !important;
+  }
+  .col-3 {
+    width: 100% !important;
+  }
+  .col-4 {
+    width: 100% !important;
+  }
+}

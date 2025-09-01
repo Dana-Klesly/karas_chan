@@ -1,0 +1,56 @@
+<div class="startseiteWillkommen">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <div class="col-2">
+          <div class="text-section">
+            <img
+              src="../../assets/img/1/Employee Handbook9.png"
+              alt="Title Image"
+              class="title-img"
+            />
+
+            <span *ngIf="isLoggedIn; else loginButton" class="welcome-text">
+              Welcome back {{ username }}!
+            </span>
+
+            <ng-template #loginButton>
+              <a
+                routerLink="/login"
+                routerLinkActive="active"
+                class="login-button"
+              >
+                Login
+              </a>
+            </ng-template>
+          </div>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-2">
+          <img
+            src="../../assets/img/1/23.png"
+            alt="Cute character"
+            class="heart-image"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="bottom-container">
+    <div class="bottom-images">
+      <img
+        src="../../assets/img/1/Employee Handbook.png"
+        alt="Bottom Image"
+        class="bottom-image"
+      />
+      <img
+        src="../../assets/img/1/Employee Handbook.png"
+        alt="Bottom Image"
+        class="bottom-image"
+      />
+    </div>
+  </div>
+</div>

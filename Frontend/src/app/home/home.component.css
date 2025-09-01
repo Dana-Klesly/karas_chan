@@ -1,0 +1,104 @@
+.startseiteWillkommen {
+  padding: 0 4%;
+  margin-top: 2%;
+}
+
+.text-section {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome-text {
+  color: #ff4d8b;
+}
+
+.title-img {
+  width: 38vw;
+  max-width: 1000px;
+  height: auto;
+}
+
+.login-button {
+  color: #ff8fc4;
+
+  text-decoration: none;
+  padding: 15px 25px;
+  border-radius: 30px;
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: 0.3s;
+  border: 2px solid #ff4d8b;
+  box-shadow: 0px 4px 10px rgba(255, 77, 139, 0.5);
+}
+
+.login-button:hover {
+  background: rgb(104, 0, 0);
+  color: white;
+}
+
+.heart-image {
+  width: 35vw;
+  max-width: 1000px;
+  height: auto;
+}
+@media (max-width: 480px) {
+  .title-img,
+  .heart-image {
+    width: 58vw !important;
+    max-width: 400px !important;
+  }
+}
+@media (max-width: 768px) {
+  .title-img,
+  .heart-image {
+    display: block !important;
+    margin: 0 auto !important;
+  }
+}
+
+.bottom-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.bottom-images {
+  display: flex;
+  animation: moveInfinite 20s linear infinite;
+  height: 50%;
+}
+
+.bottom-image {
+  width: 250%;
+  height: auto;
+}
+
+@keyframes moveInfinite {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .bottom-image {
+    width: 300%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .bottom-image {
+    width: 500%;
+    height: auto;
+  }
+}
