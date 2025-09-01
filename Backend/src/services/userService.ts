@@ -9,9 +9,7 @@ export async function createUser(input: SignupInputSchema) {
   try {
     createdUser = await db.insert(user).values(input).returning();
   } catch (error: any) {
-    if (error instanceof NeonDbError) {
-      if (error?.code === "23505") throw new Error("User already exists");
-    }
+    if (error?.code === "23505") throw new Error("User already exists");
   }
   if (!createdUser || !createdUser.length) throw new Error("User not created");
   return createdUser[0];
