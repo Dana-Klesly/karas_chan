@@ -41,7 +41,7 @@ export async function createUser(req: Request, res: Response) {
 export async function signinUser(req: Request, res: Response) {
   const input = req.body as SigninInputSchema;
   try {
-    const user = await userService.findUserByEmail(input);
+    const user = await userService.findUserByEmail(input.email);
     const passwordMatch = await bcrypt.compare(input.password, user.password);
     if (!passwordMatch) {
       res.status(401).json({

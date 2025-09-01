@@ -24,13 +24,13 @@ export async function createUser(input: SignupInputSchema) {
   return createdUser[0];
 }
 
-export async function findUserByEmail(input: SigninInputSchema) {
+export async function findUserByEmail(input: SigninInputSchema["email"]) {
   let queriedUser: User[] = [];
   try {
     queriedUser = await db
       .select()
       .from(user)
-      .where(eq(user.email, input.email));
+      .where(eq(user.email, input));
   } catch (error) {
     throw new Error("Database error");
   }
