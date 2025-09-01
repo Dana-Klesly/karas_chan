@@ -7,17 +7,10 @@ import { eq } from "drizzle-orm";
 export async function createUser(input: SignupInputSchema) {
   let createdUser = undefined;
   try {
-    createdUser = await db.insert(user).values(input).returning({
-      id: user.id,
-      email: user.email,
-      fullName: user.fullName,
-      address: user.address,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    });
-  } catch (error) {
+    createdUser = await db.insert(user).values(input).returning();
+  } catch (error: any) {
     if (error instanceof NeonDbError) {
-      if (error.code === "23505") throw new Error("User already exists");
+      if (error?.code === "23505") throw new Error("User already exists");
     }
   }
   if (!createdUser || !createdUser.length) throw new Error("User not created");
