@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/testdb
+      NODE_ENV: test
+      CI: true
+      PORT: 3000
+      TOKEN_ISSUER: karaschan.org
+      JWT_SECRET: fcBcMBDGWjXtoaPkRb5PHhJXGE1D8i/CfxamuTBaGahdAUEJNTdhS5XfVViRhmJz
+      JWT_KEY: SKYmpCXj5NkPbFPoakaa4Q==
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Navigate into backend folder
+      - name: Install dependencies
+        working-directory: ./KarasChan-master
+        run: npm ci
+
+      # Remove .env for CI
+      - name: Override .env for CI
+        working-directory: ./KarasChan-master
+        run: rm -f .env.development.local
+
+      # Run migrations (adjust command as needed)
+      - name: Run DB migrations
+        working-directory: ./KarasChan-master
+        run: npm run db:push
+
+      # Run tests
+      - name: Run tests
+        working-directory: ./KarasChan-master
+        run: npm test
