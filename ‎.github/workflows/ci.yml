@@ -59,3 +59,12 @@ jobs:
       - name: Run tests
         working-directory: ./KarasChan-master
         run: npm test
+
+      - name: Run tests with coverage
+        working-directory: ./KarasChan-master
+        run: npm run test:coverage
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: ./KarasChan-master/coverage
