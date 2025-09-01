@@ -42,29 +42,29 @@ jobs:
 
       # Navigate into backend folder
       - name: Install dependencies
-        working-directory: ./KarasChan-master
+        working-directory: ./Backend
         run: npm ci
 
       # Remove .env for CI
       - name: Override .env for CI
-        working-directory: ./KarasChan-master
+        working-directory: ./Backend
         run: rm -f .env.development.local
 
       # Run migrations (adjust command as needed)
       - name: Run DB migrations
-        working-directory: ./KarasChan-master
+        working-directory: ./Backend
         run: npm run db:push
 
       # Run tests
       - name: Run tests
-        working-directory: ./KarasChan-master
+        working-directory: ./Backend
         run: npm test
 
       - name: Run tests with coverage
-        working-directory: ./KarasChan-master
+        working-directory: ./Backend
         run: npm run test:coverage
       - name: Upload coverage
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: ./KarasChan-master/coverage
+          path: ./Backend/coverage
