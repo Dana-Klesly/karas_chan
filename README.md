@@ -1,5 +1,9 @@
 # 🛍️ Überblick über meine Webseite „KARAS“
 
+![Build Status](https://img.shields.io/github/actions/workflow/status/Dana-Klesly/karas_chan/ci.yml?branch=main)
+![Test Coverage](https://img.shields.io/badge/coverage-80%25-brightgreen)
+![Node Version](https://img.shields.io/badge/node-20-blue)
+
 Ich habe die Webseite „KARAS“ entwickelt, um meine personalisierten Gläser professionell und benutzerfreundlich zu präsentieren und den Bestellprozess zu vereinfachen. Kundinnen und Kunden können sich nun direkt auf der Seite über meine Produkte informieren, Preise einsehen und Bestellungen aufgeben – ohne die bisher zeitaufwendige Kommunikation über Instagram. Die Webseite bietet ein modernes, responsives Design, eine klare Produktdarstellung und ein integriertes Bestellformular für ein optimiertes Einkaufserlebnis auf allen Geräten.
 
 ## ✨ Funktionen
