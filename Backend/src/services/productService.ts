@@ -55,6 +55,7 @@ export async function getProductByCartId({
         image: product.image,
         price: product.price,
         quantity: product.quantity,
+        description: product.description,
       })
       .from(product)
       .innerJoin(cartItem, eq(cartItem.productId, product.id))
