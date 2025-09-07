@@ -1,58 +1,61 @@
+substitutions:
+  _PROJECT_ID: fluid-crane-466321-m5
+  _REGION: europe-west10
+  _REPO: karas_chan
+  _API_IMAGE: backend
+  _FRONTEND_IMAGE: frontend
+
 steps:
-  # Build API
+  # Build & push API
   - name: 'gcr.io/cloud-builders/docker'
     args: [
-      'build',
-      '-t', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/backend:latest',
+      'build', 
+      '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_API_IMAGE}:latest', 
       './Backend'
     ]
-
   - name: 'gcr.io/cloud-builders/docker'
     args: [
-      'push',
-      'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/backend:latest'
+      'push', 
+      '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_API_IMAGE}:latest'
     ]
 
-  # Build Frontend
+  # Build & push Frontend
   - name: 'gcr.io/cloud-builders/docker'
     args: [
-      'build',
-      '-t', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/frontend:latest',
+      'build', 
+      '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_FRONTEND_IMAGE}:latest', 
       './Frontend'
     ]
-
   - name: 'gcr.io/cloud-builders/docker'
     args: [
-      'push',
-      'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/frontend:latest'
+      'push', 
+      '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_FRONTEND_IMAGE}:latest'
     ]
 
-  # Deploy API with runtime env vars
+  # Deploy API
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args: [
       'run', 'deploy', 'api-service',
-      '--image', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/backend:latest',
-      '--region', 'us-central1',
+      '--image', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_API_IMAGE}:latest',
+      '--region', '${_REGION}',
       '--platform', 'managed',
       '--allow-unauthenticated',
-      '--set-env-vars',
+      '--set-env-vars', 
       'NODE_ENV=production,PORT=3000,DATABASE_URL=${_DATABASE_URL},TOKEN_ISSUER=${_TOKEN_ISSUER},JWT_SECRET=${_JWT_SECRET},JWT_KEY=${_JWT_KEY}'
     ]
 
-  # Deploy Frontend with runtime env vars
+  # Deploy Frontend
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args: [
       'run', 'deploy', 'frontend-service',
-      '--image', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/frontend:latest',
-      '--region', 'us-central1',
+      '--image', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_FRONTEND_IMAGE}:latest',
+      '--region', '${_REGION}',
       '--platform', 'managed',
       '--allow-unauthenticated',
-      '--set-env-vars',
-      'API_BASE_URL=${_API_BASE_URL}'
+      '--set-env-vars', 'API_BASE_URL=${_API_BASE_URL}'
     ]
-
 
 options:
   logging: CLOUD_LOGGING_ONLY
