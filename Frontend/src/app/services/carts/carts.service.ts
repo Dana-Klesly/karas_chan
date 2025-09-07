@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Cart, CartItem, OneCartItem } from './cart.interface';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { ConfigService } from '../../config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartsService {
-  constructor(private http: HttpClient) {}
+  constructor(private config: ConfigService, private http: HttpClient) { }
 
   createCart(): Observable<Cart> {
-    return this.http.post<Cart>('/api/carts', {});
+    return this.http.post<Cart>(`${this.config.apiBaseUrl}/carts`, {});
   }
 
   getCart(): Observable<Cart> {
-    return this.http.get<Cart>(`/api/carts`);
+    return this.http.get<Cart>(`${this.config.apiBaseUrl}/carts`);
   }
 
   addCartItem(input: OneCartItem): Observable<CartItem> {
-    return this.http.post<CartItem>('/api/carts/items', input).pipe(
+    return this.http.post<CartItem>(`${this.config.apiBaseUrl}/carts/items`, input).pipe(
       catchError((error) => {
         console.error('Error adding cart item:', error);
         return throwError(() => error);
@@ -31,7 +32,7 @@ export class CartsService {
     const params = new HttpParams().set('limit', '1000').set('offset', '0');
 
     return this.http
-      .get<{ data: CartItem[] }>('/api/carts/items', { params })
+      .get<{ data: CartItem[] }>(`${this.config.apiBaseUrl}/carts/items`, { params })
       .pipe(
         map((response) => response.data),
         catchError((error) => {
@@ -42,7 +43,7 @@ export class CartsService {
   }
 
   deleteCartItem(id: string): Observable<void> {
-    return this.http.delete<void>(`/api/carts/items/${id}`).pipe(
+    return this.http.delete<void>(`${this.config.apiBaseUrl}/carts/items/${id}`).pipe(
       catchError((error) => {
         console.error('Error deleting cart item:', error);
         return throwError(() => error);
