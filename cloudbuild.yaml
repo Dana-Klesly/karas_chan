@@ -1,8 +1,7 @@
 substitutions:
   _PROJECT_ID: fluid-crane-466321-m5
   _REGION: europe-west10
-  _REPO: karas_chan
-  _DOCKER_REPO: karas-chan  
+  _DOCKER_REPO: karas-chan  # Artifact Registry repo
   _API_IMAGE: backend
   _FRONTEND_IMAGE: frontend
 
@@ -11,7 +10,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build', 
-      '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_API_IMAGE}:latest', 
+      '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_DOCKER_REPO}/${_API_IMAGE}:latest', 
       './Backend'
     ]
   - name: 'gcr.io/cloud-builders/docker'
@@ -24,7 +23,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [
       'build', 
-      '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_FRONTEND_IMAGE}:latest', 
+      '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_DOCKER_REPO}/${_FRONTEND_IMAGE}:latest', 
       './Frontend'
     ]
   - name: 'gcr.io/cloud-builders/docker'
@@ -38,7 +37,7 @@ steps:
     entrypoint: gcloud
     args: [
       'run', 'deploy', 'api-service',
-      '--image', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_API_IMAGE}:latest',
+      '--image', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_DOCKER_REPO}/${_API_IMAGE}:latest',
       '--region', '${_REGION}',
       '--platform', 'managed',
       '--allow-unauthenticated',
@@ -51,7 +50,7 @@ steps:
     entrypoint: gcloud
     args: [
       'run', 'deploy', 'frontend-service',
-      '--image', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPO}/${_FRONTEND_IMAGE}:latest',
+      '--image', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_DOCKER_REPO}/${_FRONTEND_IMAGE}:latest',
       '--region', '${_REGION}',
       '--platform', 'managed',
       '--allow-unauthenticated',
