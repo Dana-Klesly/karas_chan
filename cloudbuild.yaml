@@ -1,19 +1,33 @@
 steps:
   # Build API
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/backend:latest', './Backend']
+    args: [
+      'build',
+      '-t', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/backend:latest',
+      './Backend'
+    ]
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/backend:latest']
+    args: [
+      'push',
+      'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/backend:latest'
+    ]
 
   # Build Frontend
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/frontend:latest', './Frontend']
+    args: [
+      'build',
+      '-t', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/frontend:latest',
+      './Frontend'
+    ]
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/frontend:latest']
+    args: [
+      'push',
+      'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/frontend:latest'
+    ]
 
-  # Deploy API
+  # Deploy API with runtime env vars
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args: [
@@ -21,10 +35,12 @@ steps:
       '--image', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/backend:latest',
       '--region', 'us-central1',
       '--platform', 'managed',
-      '--allow-unauthenticated'
+      '--allow-unauthenticated',
+      '--set-env-vars',
+      'NODE_ENV=production,PORT=3000,DATABASE_URL=${_DATABASE_URL},TOKEN_ISSUER=${_TOKEN_ISSUER},JWT_SECRET=${_JWT_SECRET},JWT_KEY=${_JWT_KEY}'
     ]
 
-  # Deploy Frontend
+  # Deploy Frontend with runtime env vars
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args: [
@@ -32,5 +48,11 @@ steps:
       '--image', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/frontend:latest',
       '--region', 'us-central1',
       '--platform', 'managed',
-      '--allow-unauthenticated'
+      '--allow-unauthenticated',
+      '--set-env-vars',
+      'API_BASE_URL=${_API_BASE_URL}'
     ]
+
+
+options:
+  logging: CLOUD_LOGGING_ONLY
