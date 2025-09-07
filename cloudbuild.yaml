@@ -1,0 +1,36 @@
+steps:
+  # Build API
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/backend:latest', './Backend']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/backend:latest']
+
+  # Build Frontend
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/frontend:latest', './Frontend']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/frontend:latest']
+
+  # Deploy API
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: [
+      'run', 'deploy', 'api-service',
+      '--image', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/backend:latest',
+      '--region', 'us-central1',
+      '--platform', 'managed',
+      '--allow-unauthenticated'
+    ]
+
+  # Deploy Frontend
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: [
+      'run', 'deploy', 'frontend-service',
+      '--image', 'us-central1-docker.pkg.dev/fluid-crane-466321-m5/karas_chan/frontend:latest',
+      '--region', 'us-central1',
+      '--platform', 'managed',
+      '--allow-unauthenticated'
+    ]
