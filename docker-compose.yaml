@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    ports:
+      - "3000:3000" 
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: ${DATABASE_URL}
+      TOKEN_ISSUER: ${TOKEN_ISSUER}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_KEY: ${JWT_KEY}
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      API_BASE_URL: http://localhost:3000/api
