@@ -18,6 +18,6 @@ COPY package*.json ./
 
 RUN npm ci --omit=dev
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["node", "dist/src/server.js"]
