@@ -42,7 +42,7 @@ steps:
       '--platform', 'managed',
       '--allow-unauthenticated',
       '--set-env-vars', 
-      'NODE_ENV=production,API_PORT=3000,DATABASE_URL=${_DATABASE_URL},TOKEN_ISSUER=${_TOKEN_ISSUER},JWT_SECRET=${_JWT_SECRET},JWT_KEY=${_JWT_KEY}'
+      'NODE_ENV=production,DATABASE_URL=${_DATABASE_URL},TOKEN_ISSUER=${_TOKEN_ISSUER},JWT_SECRET=${_JWT_SECRET},JWT_KEY=${_JWT_KEY}'
     ]
 
   # Deploy Frontend

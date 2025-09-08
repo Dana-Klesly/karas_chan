@@ -1,7 +1,7 @@
 import { app } from "./app";
 
 const env = {
-  API_PORT: process.env.API_PORT || 3000,
+  API_PORT: process.env.PORT ||  process.env.API_PORT || 3000,
   NODE_ENV: process.env.NODE_ENV || "development",
 };
 
