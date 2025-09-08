@@ -11,7 +11,7 @@ services:
       - "3000:3000" 
     environment:
       NODE_ENV: production
-      PORT: 3000
+      API_PORT: 3000
       DATABASE_URL: ${DATABASE_URL}
       TOKEN_ISSUER: ${TOKEN_ISSUER}
       JWT_SECRET: ${JWT_SECRET}
