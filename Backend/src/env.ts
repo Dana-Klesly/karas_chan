@@ -8,7 +8,7 @@ const envSchema = z.object({
   TOKEN_ISSUER: z.string(),
   JWT_SECRET: z.string(),
   JWT_KEY: z.string(),
-  API_PORT: z.string().transform(Number),
+  PORT: z.string().transform(Number),
 });
 
 export const env = envSchema.parse(process.env);
