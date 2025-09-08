@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   backend:
     build:
@@ -8,10 +6,10 @@ services:
     container_name: backend
     restart: always
     ports:
-      - "3000:3000" 
+      - "3000:8080" 
     environment:
       NODE_ENV: production
-      API_PORT: 3000
+      API_PORT: 3000 # This must be the same as the exposed port in 'ports'
       DATABASE_URL: ${DATABASE_URL}
       TOKEN_ISSUER: ${TOKEN_ISSUER}
       JWT_SECRET: ${JWT_SECRET}
