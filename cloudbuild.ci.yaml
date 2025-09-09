@@ -1,9 +1,9 @@
 steps:
   - name: docker/compose:1.29.2
-    args: ["-f", "docker-compose.ci.yml", "up", "--abort-on-container-exit", "--exit-code-from", "backend"]
+    args: ["-f", "docker-compose.ci.yaml", "up", "--abort-on-container-exit", "--exit-code-from", "backend"]
 
   - name: docker/compose:1.29.2
-    args: ["-f", "docker-compose.ci.yml", "down", "-v"]
+    args: ["-f", "docker-compose.ci.yaml", "down", "-v"]
 
   - name: gcr.io/cloud-builders/gsutil
     args:
