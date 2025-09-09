@@ -10,7 +10,7 @@ steps:
       - cp
       - -r
       - Backend/coverage
-      - gs://my-ci-artifacts/coverage/$BUILD_ID
+      - gs://tests-artifact-bucket/coverage/$BUILD_ID
 
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
