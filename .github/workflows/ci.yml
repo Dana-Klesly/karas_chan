@@ -50,15 +50,9 @@ jobs:
         working-directory: ./Backend
         run: rm -f .env.development.local
 
-      # Run migrations (adjust command as needed)
       - name: Run DB migrations
         working-directory: ./Backend
         run: npm run db:push
-
-      # Run tests
-      - name: Run tests
-        working-directory: ./Backend
-        run: npm test
 
       - name: Run tests with coverage
         working-directory: ./Backend
