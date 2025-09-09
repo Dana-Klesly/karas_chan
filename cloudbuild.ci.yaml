@@ -1,0 +1,68 @@
+steps:
+  - name: node:20
+    dir: Backend
+    entrypoint: npm
+    args: ["ci"]
+
+  - name: postgres:16
+    id: "postgres"
+    env:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=testdb
+    ports:
+      - 5432
+    waitFor: ["-"]
+
+  - name: postgres:16
+    entrypoint: bash
+    args:
+      - "-c"
+      - |
+        until pg_isready -h postgres -p 5432 -U postgres; do
+          echo "Waiting for Postgres..."
+          sleep 2
+        done
+
+  - name: node:20
+    dir: Backend
+    env:
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/testdb
+      - NODE_ENV=test
+      - CI=true
+      - PORT=3000
+      - TOKEN_ISSUER=karaschan.org
+      - JWT_SECRET=fcBcMBDGWjXtoaPkRb5PHhJXGE1D8i/CfxamuTBaGahdAUEJNTdhS5XfVViRhmJz
+      - JWT_KEY=SKYmpCXj5NkPbFPoakaa4Q==
+    entrypoint: npm
+    args: ["run", "db:push"]
+
+  - name: node:20
+    dir: Backend
+    env:
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/testdb
+      - NODE_ENV=test
+      - CI=true
+    entrypoint: npm
+    args: ["test"]
+
+  # Run coverage
+  - name: node:20
+    dir: Backend
+    env:
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/testdb
+      - NODE_ENV=test
+      - CI=true
+    entrypoint: npm
+    args: ["run", "test:coverage"]
+
+  # Upload coverage as build artifact to GCS
+  - name: gcr.io/cloud-builders/gsutil
+    args:
+      - cp
+      - -r
+      - Backend/coverage
+      - gs://my-ci-artifacts/coverage/$BUILD_ID
+
+options:
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
