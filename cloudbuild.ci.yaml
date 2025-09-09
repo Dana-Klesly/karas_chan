@@ -10,10 +10,9 @@ steps:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=testdb
-    waitFor: ["-"]  
+    waitFor: ["-"]
 
-  - name: postgres:16
-    entrypoint: bash
+  - name: gcr.io/cloud-builders/bash
     args:
       - "-c"
       - |
