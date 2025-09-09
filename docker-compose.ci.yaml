@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: testdb
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    working_dir: /usr/src/app
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/testdb
+      NODE_ENV: test
+      CI: "true"
+      PORT: 3000
+      TOKEN_ISSUER: karaschan.org
+      JWT_SECRET: fcBcMBDGWjXtoaPkRb5PHhJXGE1D8i/CfxamuTBaGahdAUEJNTdhS5XfVViRhmJz
+      JWT_KEY: SKYmpCXj5NkPbFPoakaa4Q==
+    command: >
+      sh -c "
+        npm ci &&
+        npm run db:push &&
+        npm test &&
+        npm run test:coverage
+      "

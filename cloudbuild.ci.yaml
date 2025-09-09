@@ -1,59 +1,10 @@
 steps:
-  - name: node:20
-    dir: Backend
-    entrypoint: npm
-    args: ["ci"]
+  - name: docker/compose:1.29.2
+    args: ["-f", "docker-compose.ci.yml", "up", "--abort-on-container-exit", "--exit-code-from", "backend"]
 
-  - name: postgres:16
-    id: "postgres"
-    env:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=testdb
-    waitFor: ["-"]
+  - name: docker/compose:1.29.2
+    args: ["-f", "docker-compose.ci.yml", "down", "-v"]
 
-  - name: gcr.io/cloud-builders/bash
-    args:
-      - "-c"
-      - |
-        until pg_isready -h postgres -p 5432 -U postgres; do
-          echo "Waiting for Postgres..."
-          sleep 2
-        done
-
-  - name: node:20
-    dir: Backend
-    env:
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/testdb
-      - NODE_ENV=test
-      - CI=true
-      - PORT=3000
-      - TOKEN_ISSUER=karaschan.org
-      - JWT_SECRET=fcBcMBDGWjXtoaPkRb5PHhJXGE1D8i/CfxamuTBaGahdAUEJNTdhS5XfVViRhmJz
-      - JWT_KEY=SKYmpCXj5NkPbFPoakaa4Q==
-    entrypoint: npm
-    args: ["run", "db:push"]
-
-  - name: node:20
-    dir: Backend
-    env:
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/testdb
-      - NODE_ENV=test
-      - CI=true
-    entrypoint: npm
-    args: ["test"]
-
-  # Run coverage
-  - name: node:20
-    dir: Backend
-    env:
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/testdb
-      - NODE_ENV=test
-      - CI=true
-    entrypoint: npm
-    args: ["run", "test:coverage"]
-
-  # Upload coverage as build artifact to GCS
   - name: gcr.io/cloud-builders/gsutil
     args:
       - cp
