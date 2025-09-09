@@ -10,7 +10,7 @@ const app = express();
 // Enable CORS for frontend access
 app.use(
   cors({
-    origin: "https://frontend-service-477873493019.europe-west10.run.app/api",
+    origin: "https://frontend-service-477873493019.europe-west10.run.app",
     methods: "GET,POST,PUT,DELETE",
     allowedHeaders: "Content-Type,Authorization",
   })
